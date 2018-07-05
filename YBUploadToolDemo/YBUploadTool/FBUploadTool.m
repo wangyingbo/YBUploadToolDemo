@@ -100,6 +100,7 @@ NSString * const FBAttachmentUploadFailureNumber = @"failureNumber";
     NSMutableData *currentData = [NSMutableData data];
     for (FBBasicUploadModel *model in modelArray) {
         if (!model.image) { continue; }
+        if (model.uploadStatus != YBAttachmentUploadStatusNone) { continue; }
         NSData *data = UIImagePNGRepresentation(model.image);
         [totalData appendData:data];
     }
@@ -112,6 +113,7 @@ NSString * const FBAttachmentUploadFailureNumber = @"failureNumber";
         for (int i = 0;i<modelArray.count;i++) {
             FBBasicUploadModel *model = modelArray[i];
             if (!model) { continue; }
+            if (model.uploadStatus != YBAttachmentUploadStatusNone) { continue; }
             if (![model isKindOfClass:[FBBasicUploadModel class]]) { continue; }
             NSData *current;
             if (model.image) {
