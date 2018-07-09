@@ -9,13 +9,16 @@
 #import "FBUploadTool.h"
 #import <libkern/OSAtomic.h>
 
-
 NSString * const FBAttachmentUploadSuccessNumber = @"successNumber";
 NSString * const FBAttachmentUploadFailureNumber = @"failureNumber";
 int32_t _longInt = 1;
 
 
 @implementation FBUploadTool
+
++ (void)initialize {
+    _longInt = 1;
+}
 
 + (void)asyncConcurrentGroupUploadArray:(NSArray<FBBasicUploadModel *> *)modelArray uploading:(void(^)(void))uploading completion:(void (^)(id))completion {
     
