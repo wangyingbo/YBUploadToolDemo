@@ -51,7 +51,7 @@ typedef NS_ENUM(NSInteger, YBAttachmentUploadStatus) {
 - (void)asyncConcurrentUploadSuccess:(void(^)(id obj))success progress:(void(^)(CGFloat p))progress failure:(void(^)(NSError *error))failure;
 
 /**
- 抽取的公共的上传方法
+ 抽取的公共的上传方法，模拟网络上传，可在此方法里用 afn 上传
  
  @param model 每个图片model
  @param success 成功回调
