@@ -7,11 +7,12 @@
 //
 
 #import "FBUploadTool.h"
+#import <libkern/OSAtomic.h>
 
 
-NSInteger _longNumber = 1;
 NSString * const FBAttachmentUploadSuccessNumber = @"successNumber";
 NSString * const FBAttachmentUploadFailureNumber = @"failureNumber";
+int32_t _longInt = 1;
 
 
 @implementation FBUploadTool
@@ -54,7 +55,7 @@ NSString * const FBAttachmentUploadFailureNumber = @"failureNumber";
     }
     NSAssert((modelArray && modelArray.count>0), @"图片model数组nil");
     
-    void (^endBlock)(long) = ^(long x){
+    void (^endBlock)(int32_t) = ^(int32_t x){
         if (x == 1) {
             if (completion) { completion(nil); }
         }
@@ -64,20 +65,16 @@ NSString * const FBAttachmentUploadFailureNumber = @"failureNumber";
         if (!model.image) { continue; }
         if (model.uploadStatus != YBAttachmentUploadStatusNone) { continue; }
         
-        _longNumber += 1;
+        OSAtomicIncrement32(&_longInt);
         
         [model asyncConcurrentUploadSuccess:^(id obj) {
-            @synchronized (self) {
-               _longNumber -= 1;
-            }
-            endBlock(_longNumber);
+            OSAtomicDecrement32(&_longInt);
+            endBlock(_longInt);
         } progress:^(CGFloat p) {
             if (uploading) { uploading(); }
         } failure:^(NSError *error) {
-            @synchronized (self) {
-                _longNumber -= 1;
-            }
-            endBlock(_longNumber);
+            OSAtomicDecrement32(&_longInt);
+            endBlock(_longInt);
         }];
     }
 }
