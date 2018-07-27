@@ -45,17 +45,19 @@
         model.progress += per;
         dispatch_async(dispatch_get_main_queue(), ^{
             //NSLog(@"index：%@----进度：%.2f",self.index,self.progress);
-            
+            //模拟上传中的状态
             if (progress) { progress(model.progress); }
             if (model.UploadProgress) { model.UploadProgress(model.progress); }
-            
+            //模拟上传完成的状态
             if (model.progress>=1.) {
                 model.uploadStatus = YBAttachmentUploadStatusEnd;
                 if (success) { success(nil); }
                 if (model.UploadSuccess) { model.UploadSuccess(nil); }
                 return ;
             }
+            //模拟上传失败的状态
             if (model.progress<0) {
+                model.uploadStatus = YBAttachmentUploadStatusNone;
                 if (failure) { failure(nil); }
                 if (model.UploadFailure) { model.UploadFailure(nil); }
             }
