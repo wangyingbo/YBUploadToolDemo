@@ -93,7 +93,7 @@ int32_t _longInt = 1;
     NSAssert((modelArray && modelArray.count>0), @"图片model数组nil");
     
     //dispatch_semaphore_t signal = dispatch_semaphore_create(0);//总的信号
-    dispatch_group_t uploadGroup = dispatch_group_create();
+    //dispatch_group_t uploadGroup = dispatch_group_create();
     
     NSMutableDictionary *mutDic = [NSMutableDictionary dictionary];
     __block NSInteger successInt=0,failureInt=0;
@@ -108,7 +108,7 @@ int32_t _longInt = 1;
         [totalData appendData:data];
     }
     
-    dispatch_group_enter(uploadGroup);
+    //dispatch_group_enter(uploadGroup);
     //创建异步串行队列
     dispatch_async(dispatch_queue_create("com.fb_upload.queue", DISPATCH_QUEUE_SERIAL), ^{
         //用信号量sema保证一次只上传一个
@@ -132,10 +132,9 @@ int32_t _longInt = 1;
                 dispatch_semaphore_signal(sema);
                 //单个model的成功回调
                 if (model.UploadSuccess) { model.UploadSuccess(obj); }
-                if (i+1==modelArray.count) {
-                    //总的信号量可用
-                    dispatch_group_leave(uploadGroup);
-                }
+//                if (i+1==modelArray.count) {
+//                    dispatch_group_leave(uploadGroup);
+//                }
             } progress:^(CGFloat p) {
                 //单个model的进度
                 if (model.UploadProgress) { model.UploadProgress(p); }
@@ -150,9 +149,9 @@ int32_t _longInt = 1;
                 [currentData appendData:current];
                 dispatch_semaphore_signal(sema);
                 if (model.UploadFailure) { model.UploadFailure(error); }
-                if (i+1==modelArray.count) {
-                    dispatch_group_leave(uploadGroup);
-                }
+//                if (i+1==modelArray.count) {
+//                    dispatch_group_leave(uploadGroup);
+//                }
             }];
         }
         
@@ -163,14 +162,15 @@ int32_t _longInt = 1;
         }
     });
     
-    dispatch_group_notify(uploadGroup, dispatch_get_main_queue(), ^{
-        //总的完成以后的回调
-        [mutDic setObject:[NSNumber numberWithInteger:successInt] forKey:FBAttachmentUploadSuccessNumber];
-        [mutDic setObject:[NSNumber numberWithInteger:failureInt] forKey: FBAttachmentUploadFailureNumber];
-        if (completion) {
-            completion(mutDic);
-        }
-    });
+    //dispatch_group_notify(uploadGroup, dispatch_get_main_queue(), ^{
+    //});
+    
+    //总的完成以后的回调
+    [mutDic setObject:[NSNumber numberWithInteger:successInt] forKey:FBAttachmentUploadSuccessNumber];
+    [mutDic setObject:[NSNumber numberWithInteger:failureInt] forKey: FBAttachmentUploadFailureNumber];
+    if (completion) {
+        completion(mutDic);
+    }
     
 }
 @end
