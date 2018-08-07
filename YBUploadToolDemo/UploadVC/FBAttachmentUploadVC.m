@@ -212,8 +212,13 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
 - (void)asyncSerialUpload {
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1. * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        self.uploading = YES;
+        for (FBAttachmentCellStyleModel *model in self.dataArray) {
+            if (model.imgUrl.length>0) {
+                model.uploadStatus = YBAttachmentUploadStatusEnd;
+            }
+        }
         [FBAttachmentCellStyleModel asyncSerialUploadArray:self.dataArray progress:^(CGFloat p, NSInteger index) {
+            self.uploading = YES;
             NSLog(@"%.4f",p);
         } completion:^(id obj) {
             NSLog(@"数量：%@",obj);

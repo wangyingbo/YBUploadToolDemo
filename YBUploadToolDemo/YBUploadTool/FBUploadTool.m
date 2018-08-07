@@ -85,6 +85,7 @@ int32_t _longInt = 1;
 + (void)asyncSerialUploadArray:(NSArray<FBBasicUploadModel *> *)modelArray progress:(void(^)(CGFloat p, NSInteger index))progress completion:(void(^)(id obj))completion {
     
     if (!modelArray || modelArray.count<1) {
+        !completion?:completion(nil);
         return;
     }
     NSAssert((modelArray && modelArray.count>0), @"图片model数组nil");
@@ -110,11 +111,13 @@ int32_t _longInt = 1;
     dispatch_async(dispatch_queue_create("com.fb_upload.queue", DISPATCH_QUEUE_SERIAL), ^{
         //用信号量sema保证一次只上传一个
         dispatch_semaphore_t sema = dispatch_semaphore_create(1);
+        NSInteger shouldUploadNumber = 0;
         for (int i = 0;i<modelArray.count;i++) {
             FBBasicUploadModel *model = modelArray[i];
             if (!model) { continue; }
             if (model.uploadStatus != YBAttachmentUploadStatusNone) { continue; }
             if (![model isKindOfClass:[FBBasicUploadModel class]]) { continue; }
+            shouldUploadNumber += 1;
             NSData *current;
             if (model.image) {
                 current = UIImagePNGRepresentation(model.image);
@@ -149,6 +152,10 @@ int32_t _longInt = 1;
                     dispatch_group_leave(uploadGroup);
                 }
             }];
+        }
+        
+        if (shouldUploadNumber<1) {
+            !completion?:completion(nil);
         }
     });
     
