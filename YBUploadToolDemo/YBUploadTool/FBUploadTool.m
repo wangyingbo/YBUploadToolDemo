@@ -85,7 +85,9 @@ int32_t _longInt = 1;
 + (void)asyncSerialUploadArray:(NSArray<FBBasicUploadModel *> *)modelArray progress:(void(^)(CGFloat p, NSInteger index))progress completion:(void(^)(id obj))completion {
     
     if (!modelArray || modelArray.count<1) {
-        !completion?:completion(nil);
+        dispatch_async(dispatch_get_main_queue(), ^{
+            !completion?:completion(nil);
+        });
         return;
     }
     NSAssert((modelArray && modelArray.count>0), @"图片model数组nil");
@@ -155,7 +157,9 @@ int32_t _longInt = 1;
         }
         
         if (shouldUploadNumber<1) {
-            !completion?:completion(nil);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                !completion?:completion(nil);
+            });
         }
     });
     
