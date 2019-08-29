@@ -23,13 +23,12 @@ static char oldBarImageKey;
 - (void)yb_setNavigationBackgroundImage:(UIImage *)image {
     self.oldBarImage = [self.navigationController.navigationBar backgroundImageForBarMetrics:UIBarMetricsDefault];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"home_nav_bg_img"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)yb_recoverNavigationBackgroundImage {
     [self.navigationController.navigationBar setBackgroundImage:self.oldBarImage forBarMetrics:UIBarMetricsDefault];
 }
-
 
 - (void)yb_setTitleAttributesWithTitle:(NSString *)title font:(UIFont *)font color:(UIColor *)color {
     if (title) {
@@ -44,7 +43,7 @@ static char oldBarImageKey;
     if (title) {
         UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithTitle:title style:UIBarButtonItemStylePlain target:self action:action];
         self.navigationItem.rightBarButtonItem = rightItem;
-        NSDictionary *dicRightItem = @{NSFontAttributeName:font, NSForegroundColorAttributeName: color};//575757 FF9500
+        NSDictionary *dicRightItem = @{NSFontAttributeName:font, NSForegroundColorAttributeName: color};
         [rightItem setTitleTextAttributes:dicRightItem forState:UIControlStateNormal];
     }else {
         return;
@@ -58,7 +57,28 @@ static char oldBarImageKey;
 }
 
 - (void)yb_setTintColor:(UIColor *)tintColor {
-    self.navigationController.navigationBar.tintColor = tintColor;
+    [self.navigationController.navigationBar setTintColor:tintColor];
 }
+
+- (void)yb_setBarTintColor:(UIColor *)barTintColor {
+    [self.navigationController.navigationBar setBarTintColor:barTintColor];
+}
+
+- (void)yb_setNavigationTitleColor:(UIColor *)navigationTitleColor {
+    [self.navigationController.navigationBar setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys: navigationTitleColor, NSForegroundColorAttributeName,[UIFont systemFontOfSize:17.f], NSFontAttributeName, nil]];
+}
+
+- (void)yb_setNavigationBarTintColor:(UIColor *)barTintColor tintColor:(UIColor *)tintColor titleColor:(UIColor *)titleColor {
+    [self yb_setBarTintColor:barTintColor];
+    [self yb_setTintColor:tintColor];
+    [self yb_setNavigationTitleColor:titleColor];
+}
+
+- (void)yb_setInteractivePopGestureRecognizerEnabled:(BOOL)enabled {
+    if([self.navigationController respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+        self.navigationController.interactivePopGestureRecognizer.enabled = enabled;
+    }
+}
+
 
 @end

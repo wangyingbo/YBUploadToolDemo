@@ -8,7 +8,8 @@
 
 #import "ViewController.h"
 #import "FBAttachmentUploadVC.h"
-
+#import "UIViewController+YBNaviAttributes.h"
+#import "UIImage+Extension.h"
 
 @interface ViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -40,6 +41,8 @@
     
     [self configUI];
     
+    [self configNavigation];
+    
     [self configData];
 }
 
@@ -51,6 +54,13 @@
 - (void)configUI {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+}
+
+- (void)configNavigation {
+    UIImage *bgImage = [UIImage imageWithColor:[UIColor redColor]];
+    //[self yb_setNavigationBackgroundImage:bgImage];
+    
+    [self yb_setTitleAttributesWithTitle:@"demo" font:[UIFont systemFontOfSize:17.] color:[UIColor darkGrayColor]];
 }
 
 #pragma mark - dataSource

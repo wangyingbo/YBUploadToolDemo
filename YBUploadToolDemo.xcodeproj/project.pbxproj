@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D1A8613F2317CCF900CF2F63 /* UIImage+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = D1A8613D2317CCF900CF2F63 /* UIImage+Extension.m */; };
 		D1F0CA2420EDFF070023930E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F0CA2320EDFF070023930E /* AppDelegate.m */; };
 		D1F0CA2720EDFF070023930E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D1F0CA2620EDFF070023930E /* ViewController.m */; };
 		D1F0CA2A20EDFF070023930E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1F0CA2820EDFF070023930E /* Main.storyboard */; };
@@ -49,6 +50,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		D1A8613D2317CCF900CF2F63 /* UIImage+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Extension.m"; sourceTree = "<group>"; };
+		D1A8613E2317CCF900CF2F63 /* UIImage+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Extension.h"; sourceTree = "<group>"; };
 		D1F0CA1F20EDFF070023930E /* YBUploadToolDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YBUploadToolDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D1F0CA2220EDFF070023930E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D1F0CA2320EDFF070023930E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -222,6 +225,8 @@
 				D1F0CA7020EE04E80023930E /* UIViewController+BackButtonHandler.m */,
 				D1F0CA7120EE04E90023930E /* UIViewController+YBNaviAttributes.h */,
 				D1F0CA6E20EE04E80023930E /* UIViewController+YBNaviAttributes.m */,
+				D1A8613E2317CCF900CF2F63 /* UIImage+Extension.h */,
+				D1A8613D2317CCF900CF2F63 /* UIImage+Extension.m */,
 				D1F0CA6420EE03790023930E /* UIColor+Hex.h */,
 				D1F0CA6320EE03790023930E /* UIColor+Hex.m */,
 				D1F0CA6620EE03F00023930E /* UIView+KVAdditional.h */,
@@ -421,6 +426,7 @@
 				D1F0CA5D20EE02850023930E /* FBAttachmentUploadCollectionViewCell.m in Sources */,
 				D1F0CA7320EE04E90023930E /* UIViewController+BackButtonHandler.m in Sources */,
 				D1F0CA2420EDFF070023930E /* AppDelegate.m in Sources */,
+				D1A8613F2317CCF900CF2F63 /* UIImage+Extension.m in Sources */,
 				D1F0CA8A20EE07D90023930E /* NSString+FBAdditional.m in Sources */,
 				D1F0CA8720EE075F0023930E /* NSString+KVAdditional.m in Sources */,
 			);
