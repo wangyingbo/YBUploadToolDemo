@@ -43,7 +43,7 @@
     [self configData];
 }
 
-#pragma amrk - private
+#pragma amrk - configData
 - (void)configData {
     self.dataArray = @[@"异步并行",@"异步串行",@"自己选图片"];
 }
