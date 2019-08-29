@@ -174,9 +174,8 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
             [self asyncConcurrentConstUpload];
         });
         
-    } failure:^(NSString *errorReason) {
+    } failure:^(YBSelectPhotoErrorTag tag) {
         @strongify(self);
-        NSLog(@"%@",errorReason);
     }];
 }
 
