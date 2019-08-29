@@ -90,7 +90,7 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     NSLog(@"%@销毁了",[self class]);
 }
 
-#pragma mark - private
+#pragma mark - configUI
 
 /**
  设置导航栏
@@ -111,15 +111,7 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
     return YES;
 }
 
-/**
- 右上角确认按钮点击方法
-
- @param sender sender description
- */
-- (void)confirmButtonClick:(UIButton *)sender {
-    
-}
-
+#pragma mark - configData
 /**
  配置数据
  */
@@ -149,6 +141,16 @@ static NSString *kAttachmentUploadCellIdentifier = @"kAttachmentUploadCellIdenti
         self.dataArray = nil;
         [self.collectionView reloadData];
     }
+    
+}
+
+#pragma mark - actions
+/**
+ 右上角确认按钮点击方法
+ 
+ @param sender sender description
+ */
+- (void)confirmButtonClick:(UIButton *)sender {
     
 }
 

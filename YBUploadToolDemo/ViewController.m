@@ -51,6 +51,7 @@
     self.dataArray = @[@"异步并行",@"异步串行",@"自己选图片"];
 }
 
+#pragma mark - configUI
 - (void)configUI {
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
